@@ -12,8 +12,24 @@ if [[ ! -f ./bin/php7/bin/php ]]; then
         echo -n "[PocketMine-MP] GIT installing..."
         sudo apt-get install --yes -qq install > /dev/null
         echo "done!"
+      else
+        echo "[PocketMine-MP] Work of script stopped!"
+        exit
       fi
     fi
+    echo -n "[PocketMine-MP] Repository cloning(pmmp/php-build-scripts)..."
+    git clone -q https://github.com/pmmp/php-build-scripts.git
+    echo "done!"
+
+    echo -n "[PocketMine-MP] PHP compiling. It may take long a time..."
+    bash php-build-scripts/compile.sh > /dev/null
+    rm -rf php-build-scripts/
+    echo "done!"
+
+    echo "[PocketMine-MP] Continuing start PocketMine-MP..."
+  else
+    echo "[PocketMine-MP] Work of script stopped!"
+    exit
   fi
 fi
 unset ANSWER
@@ -27,7 +43,8 @@ elif [[ -f ./src/pocketmine/PocketMine.php ]]; then
 elif [[ -f ./src/PocketMine.php ]]; then
   POCKETMINE=./src/PocketMine.php
 else
-  echo "[PocketMine-MP] PocketMine-MP not found!"
+  echo "[PocketMine-MP] PocketMine-MP not found! Work of script stopped!"
+  exit
 fi
 
 echo -n "[PocketMine-MP] Enable auto restart?(yes/no)..."
@@ -38,6 +55,7 @@ if [[ $ANSWER == "yes" || $ANSWER == "y" ]]; then
 else
   DO_LOOP=no
 fi
+unset ANSWER
 
 if [[ $DO_LOOP == "yes" ]]; then
   "$PHP" "$POCKETMINE"
