@@ -13,7 +13,7 @@ I do not like official installer PocketMine-MP. He install PocketMine-MP in PHAR
 ## How to use
 
 * Repository cloning <br>
-`git clone https://github.com/uzyandev/pmmp-installer/git`
+`git clone https://github.com/uzyandev/pmmp-installer.git`
 * Select directory for server <br>
 `mkdir server && cd server`
 * Start BASH-Script(***install.sh***) <br>
