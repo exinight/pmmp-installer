@@ -9,18 +9,22 @@ if [[ ! -f /bin/git ]]; then
   read ANSWER
   if [[ $ANSWER == "yes" || $ANSWER == "y" ]]; then
     echo -n "[PMMP-Installer] GIT installing..."
-    sudo apt-get install --yes -qq install > /dev/null
+    sudo apt-get install --yes -qq git > /dev/null
     echo "done!"
   fi
   unset ANSWER
 fi
 
 echo -n "[PMMP-Installer] Repository cloning(pmmp/PocketMine-MP)..."
-git clone --recurse-submodules -q https://github.com/pmmp/PocketMine-MP.git $(pwd)
+git clone --recurse-submodules -q https://github.com/pmmp/PocketMine-MP.git $(pwd)"/pmmp/"
+cd $(pwd)"/pmmp/"
 echo "done!"
 
-echo -n "[PMMP-Installer] Select version PocketMine-MP..."
+echo -n "[PMMP-Installer] Choose version PocketMine-MP..."
 git checkout -q --recurse-submodules $(read)
+mv $(ls -A) ../
+cd ../
+rm -rf $(pwd)"/pmmp/"
 
 echo -n "[PMMP-Installer] Repository cloning(pmmp/php-build-scripts)..."
 git clone -q https://github.com/pmmp/php-build-scripts.git
