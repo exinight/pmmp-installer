@@ -15,16 +15,14 @@ if [[ ! -f /bin/git ]]; then
   unset ANSWER
 fi
 
-echo -n "[PMMP-Installer] Repository cloning(pmmp/PocketMine-MP)..."
-git clone --recurse-submodules -q https://github.com/pmmp/PocketMine-MP.git $(pwd)"/pmmp/"
-cd $(pwd)"/pmmp/"
-echo "done!"
-
 echo -n "[PMMP-Installer] Choose version PocketMine-MP..."
-git checkout -q --recurse-submodules $(read)
-mv $(ls -A) ../
-cd ../
-rm -rf $(pwd)"/pmmp/"
+PMMP_VERSION=$(read)
+echo -n "[PMMP-Installer] Repository cloning(pmmp/PocketMine-MP)..."
+git clone --recurse-submodules -q https://github.com/pmmp/PocketMine-MP.git $(pwd)"/pmmp/" && cd $(pwd)"/pmmp/"
+git checkout -q $PHP_VERSION
+mv $(ls -A) ../ && cd ../
+rmdir pmmp/
+echo "done!"
 
 echo -n "[PMMP-Installer] Repository cloning(pmmp/php-build-scripts)..."
 git clone -q https://github.com/pmmp/php-build-scripts.git
