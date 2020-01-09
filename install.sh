@@ -16,7 +16,7 @@ if [[ ! -f /bin/git ]]; then
 fi
 
 echo -n "[PMMP-Installer] Repository cloning(pmmp/PocketMine-MP)..."
-git clone -q https://github.com/pmmp/PocketMine-MP.git ./pmmp && cd ./pmmp
+git clone -q --recurse-submodules https://github.com/pmmp/PocketMine-MP.git ./pmmp && cd ./pmmp
 echo "done!"
 
 echo -n "[PMMP-Installer] Choose version PocketMine-MP..."
