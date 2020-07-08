@@ -1,51 +1,40 @@
 #!/usr/bin/env bash
 
-echo "[PMMP-Installer] PocketMine-MP install to this directory. Installation will begin 5 seconds"
+echo "[PMMP-Installer] PocketMine-MP установится в этот каталог. Установка начнется через 5 секунд"
 sleep 5
-echo "[PMMP-Installer] Installation was started!"
+echo "[PMMP-Installer] Установка началась!"
 
-if [[ ! -f /bin/git ]]; then
-  echo -n "[PMMP-Installer] PMMP-Installer use GIT. Install GIT?(yes/no)..."
-  read ANSWER
-  if [[ $ANSWER == "yes" || $ANSWER == "y" ]]; then
-    echo -n "[PMMP-Installer] GIT installing..."
-    sudo apt-get install --yes -qq git > /dev/null
-    echo "done!"
-  fi
-  unset ANSWER
-fi
-
-echo -n "[PMMP-Installer] Repository cloning(pmmp/PocketMine-MP)..."
+echo -n "[PMMP-Installer] Клонирование репозитория(pmmp/PocketMine-MP)..."
 git clone -q --recurse-submodules https://github.com/pmmp/PocketMine-MP.git ./pmmp && cd ./pmmp
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] Choose version PocketMine-MP..."
+echo -n "[PMMP-Installer] Выберите версию PocketMine-MP..."
 read
 git checkout -q $REPLY
 mv $(ls -A) ../ && cd ../ && rmdir ./pmmp/
 
-echo -n "[PMMP-Installer] Repository cloning(pmmp/php-build-scripts)..."
+echo -n "[PMMP-Installer] Клонирование репозитория(pmmp/php-build-scripts)..."
 git clone -q https://github.com/pmmp/php-build-scripts.git
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] PHP compiling. It may take long a time..."
+echo -n "[PMMP-Installer] PHP-компиляция. Это может занять много времени..."
 bash php-build-scripts/compile.sh > /dev/null
 rm -rf php-build-scripts/
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] Composer downloading..."
+echo -n "[PMMP-Installer] Загрузка Composer..."
 wget -q getcomposer.org/composer.phar
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] Dependency installing..."
+echo -n "[PMMP-Installer] Установка зависимостей..."
 ./bin/php7/bin/php composer.phar --quiet install
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] Copying script to run PocketMine-MP..."
+echo -n "[PMMP-Installer] Копирование скрипта для запуска PocketMine-MP..."
 cp "$(dirname $0)/start.sh" "start.sh"
-echo "done!"
+echo "готово!"
 
-echo -n "[PMMP-Installer] Clearing excess files and directories..."
+echo -n "[PMMP-Installer] Удаление лишних файлов и каталогов..."
 rm -rf changelogs/
 rm -f composer.lock
 rm -f composer.json
@@ -57,10 +46,21 @@ rm -rf tests/
 rm -rf build/
 rm -rf doxygen/
 rm -f start.cmd
-echo "done!"
+rm -f CONTRIBUTING.md
+rm -rf .git/
+rm -rf .github/
+rm -f .gitmodules
+rm -f README.md
+rm -f BUILDING.md
+rm -f .editorconfig
+rm -f .gitattributes
+rm -f .gitignore
+rm -f .travis.yml
+rm -f LICENSE.md
+echo "готово!"
 
-echo "[PMMP-Installer] Installation was finished. Enter to start \"bash start.sh\""
-echo -n "[PMMP-Installer] Start PocketMine-MP now?(yes/no)..."
+echo "[PMMP-Installer] Установка завершена! Для запуска введите \"bash start.sh\""
+echo -n "[PMMP-Installer] Запустить PocketMine-MP сейчас?(yes/no)..."
 read ANSWER
 
 if [[ $ANSWER == "yes" || $ANSWER == "y" ]]; then
