@@ -23,11 +23,11 @@ rm -rf php-build-scripts/
 echo "готово!"
 
 echo -n "[PMMP-Installer] Загрузка Composer..."
-wget -q getcomposer.org/composer.phar
+wget -q getcomposer.org/composer-stable.phar
 echo "готово!"
 
 echo -n "[PMMP-Installer] Установка зависимостей..."
-./bin/php7/bin/php composer.phar --quiet install
+./bin/php7/bin/php composer-stable.phar --quiet install
 echo "готово!"
 
 echo -n "[PMMP-Installer] Копирование скрипта для запуска PocketMine-MP..."
@@ -57,6 +57,7 @@ rm -f .gitattributes
 rm -f .gitignore
 rm -f .travis.yml
 rm -f LICENSE.md
+rm -f LICENSE
 echo "готово!"
 
 echo "[PMMP-Installer] Установка завершена! Для запуска введите \"bash start.sh\""
