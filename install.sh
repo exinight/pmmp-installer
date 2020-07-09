@@ -38,7 +38,7 @@ echo -n "[PMMP-Installer] Удаление лишних файлов и ката
 rm -rf changelogs/
 rm -f composer.lock
 rm -f composer.json
-rm -f composer.phar
+rm -f composer-stable.phar
 rm -f install.log
 rm -f phpstan.neon.dist
 rm -f start.ps1
